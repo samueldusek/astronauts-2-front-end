@@ -30,7 +30,7 @@ function AstronautsList({ astronauts }) {
           </TableHead>
           <TableBody>
             {astronauts.map((astronaut) => (
-              <TableRow key={astronaut.name}>
+              <TableRow key={astronaut.id}>
                 <TableCell component="th" scope="row">
                   {astronaut.firstname}
                 </TableCell>
