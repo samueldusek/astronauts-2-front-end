@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import astronautsSeed from "./astronautsSeed";
 import AstronautsList from "./AstronautsList";
+import NavBar from "./NavBar";
 
 const AstronautsApp = () => {
   const [astronauts, setAstronauts] = useState(astronautsSeed);
   return (
     <div>
-      <h1>Astronauts App</h1>
+      <NavBar />
       <AstronautsList astronauts={astronauts} />
     </div>
   );
