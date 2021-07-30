@@ -8,6 +8,9 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
+import IconButton from "@material-ui/core/IconButton";
+import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
+import EditIcon from "@material-ui/icons/Edit";
 
 const useStyles = makeStyles({
   table: {
@@ -18,47 +21,69 @@ const useStyles = makeStyles({
     margin: "auto",
     marginTop: "2rem",
   },
+  tableHeader: {
+    backgroundColor: "#3f51b5",
+  },
+  tableHeaderCell: {
+    color: "white",
+    fontWeight: "bold",
+  },
 });
 
 function AstronautsList({ astronauts }) {
   const classes = useStyles();
   return (
-    <div>
-      <Container>
-        <TableContainer component={Paper} className={classes.tableContainer}>
-          <Table className={classes.table} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>#</TableCell>
-                <TableCell>Firstname</TableCell>
-                <TableCell>Lastname</TableCell>
-                <TableCell>Birthday</TableCell>
-                <TableCell>Superpower</TableCell>
+    <Container>
+      <TableContainer component={Paper} className={classes.tableContainer}>
+        <Table className={classes.table} aria-label="simple table">
+          <TableHead className={classes.tableHeader}>
+            <TableRow>
+              <TableCell className={classes.tableHeaderCell}>#</TableCell>
+              <TableCell className={classes.tableHeaderCell}>
+                Firstname
+              </TableCell>
+              <TableCell className={classes.tableHeaderCell}>
+                Lastname
+              </TableCell>
+              <TableCell className={classes.tableHeaderCell}>
+                Birthday
+              </TableCell>
+              <TableCell className={classes.tableHeaderCell}>
+                Superpower
+              </TableCell>
+              <TableCell className={classes.tableHeaderCell}>Options</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {astronauts.map((astronaut, index) => (
+              <TableRow key={astronaut.id} hover>
+                <TableCell component="th" scope="row">
+                  {index + 1}
+                </TableCell>
+                <TableCell>{astronaut.firstname}</TableCell>
+                <TableCell>{astronaut.lastname}</TableCell>
+                <TableCell>
+                  {astronaut.birthday
+                    .toLocaleString("en-GB", {
+                      timeZone: "UTC",
+                    })
+                    .slice(0, 10)}
+                </TableCell>
+                <TableCell>{astronaut.superpower}</TableCell>
+                <TableCell>
+                  <IconButton aria-label="edit">
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton aria-label="delete">
+                    <DeleteOutlineIcon />
+                  </IconButton>
+                </TableCell>
               </TableRow>
-            </TableHead>
-            <TableBody>
-              {astronauts.map((astronaut, index) => (
-                <TableRow key={astronaut.id}>
-                  <TableCell component="th" scope="row">
-                    {index}
-                  </TableCell>
-                  <TableCell>{astronaut.firstname}</TableCell>
-                  <TableCell>{astronaut.lastname}</TableCell>
-                  <TableCell>
-                    {astronaut.birthday
-                      .toLocaleString("en-GB", {
-                        timeZone: "UTC",
-                      })
-                      .slice(0, 10)}
-                  </TableCell>
-                  <TableCell>{astronaut.superpower}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Container>
-    </div>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Container>
   );
 }
 
