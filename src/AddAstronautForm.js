@@ -4,12 +4,27 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import { Paper, Typography } from "@material-ui/core";
 
-function AddAstronautForm() {
+function AddAstronautForm({ addAstronaut }) {
   const [firstname, handleFirstnameChange, resetFirstname] = useInputState("");
   const [lastname, handleLastnameChange, resetLastname] = useInputState("");
   const [birthday, handleBirthdayChange, resetBirthday] = useInputState("");
   const [superpower, handleSuperpowerChange, resetSuperpower] =
     useInputState("");
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    const birthdayDate = new Date(birthday);
+    const newAstronaut = {
+      firstname,
+      lastname,
+      birthday: birthdayDate,
+      superpower,
+    };
+    addAstronaut(newAstronaut);
+    resetFirstname();
+    resetLastname();
+    resetBirthday();
+    resetSuperpower();
+  };
   return (
     <Paper
       elevation={3}
@@ -20,15 +35,7 @@ function AddAstronautForm() {
         padding: "1rem",
       }}
     >
-      <form
-        onSubmit={(evt) => {
-          evt.preventDefault();
-          resetFirstname();
-          resetLastname();
-          resetBirthday();
-          resetSuperpower();
-        }}
-      >
+      <form onSubmit={handleSubmit}>
         <Typography component="h1" variant="h5" align="center">
           New Astronaut
         </Typography>
@@ -54,14 +61,17 @@ function AddAstronautForm() {
           placeholder="Enter the lastname."
         />
         <TextField
-          required
+          id="date"
           label="Birthday"
-          onChange={handleBirthdayChange}
+          type="date"
           value={birthday}
+          onChange={handleBirthdayChange}
           variant="outlined"
           margin="normal"
           fullWidth
-          placeholder="Enter the birthday."
+          InputLabelProps={{
+            shrink: true,
+          }}
         />
         <TextField
           required
