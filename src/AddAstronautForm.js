@@ -4,7 +4,8 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import { Paper, Typography } from "@material-ui/core";
 
-function AddAstronautForm({ addAstronaut }) {
+function AddAstronautForm(props) {
+  const { addAstronaut, history } = props;
   const [firstname, handleFirstnameChange, resetFirstname] = useInputState("");
   const [lastname, handleLastnameChange, resetLastname] = useInputState("");
   const [birthday, handleBirthdayChange, resetBirthday] = useInputState("");
@@ -24,6 +25,7 @@ function AddAstronautForm({ addAstronaut }) {
     resetLastname();
     resetBirthday();
     resetSuperpower();
+    history.push("/");
   };
   return (
     <Paper

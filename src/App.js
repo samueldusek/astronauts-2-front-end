@@ -19,7 +19,9 @@ function App() {
         <Route
           exact
           path="/add"
-          render={() => <AddAstronautForm addAstronaut={addAstronaut} />}
+          render={(routeProps) => (
+            <AddAstronautForm addAstronaut={addAstronaut} {...routeProps} />
+          )}
         />
         <Route
           exact

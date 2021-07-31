@@ -11,13 +11,14 @@ import Container from "@material-ui/core/Container";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import EditIcon from "@material-ui/icons/Edit";
+import Button from "@material-ui/core/Button";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
   },
   tableContainer: {
-    maxWidth: "900px",
     margin: "auto",
     marginTop: "2rem",
   },
@@ -28,12 +29,17 @@ const useStyles = makeStyles({
     color: "white",
     fontWeight: "bold",
   },
+  buttonContainer: {
+    marginTop: "1rem",
+    display: "flex",
+    justifyContent: "end",
+  },
 });
 
 function AstronautsList({ astronauts }) {
   const classes = useStyles();
   return (
-    <Container>
+    <Container maxWidth="md">
       <TableContainer component={Paper} className={classes.tableContainer}>
         <Table className={classes.table} aria-label="simple table">
           <TableHead className={classes.tableHeader}>
@@ -83,6 +89,15 @@ function AstronautsList({ astronauts }) {
           </TableBody>
         </Table>
       </TableContainer>
+      <Container
+        maxWidth={false}
+        disableGutters={true}
+        className={classes.buttonContainer}
+      >
+        <Button color="primary" variant="contained" component={Link} to="/add">
+          Add astronaut
+        </Button>
+      </Container>
     </Container>
   );
 }
