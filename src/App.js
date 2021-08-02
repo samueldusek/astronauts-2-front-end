@@ -5,6 +5,7 @@ import astronautsSeed from "./astronautsSeed";
 import AstronautsList from "./AstronautsList";
 import NavBar from "./NavBar";
 import AddAstronautForm from "./AddAstronautForm";
+import UserRegisterForm from "./UserRegisterForm";
 
 function App() {
   const [astronauts, setAstronauts] = useState(astronautsSeed);
@@ -28,6 +29,7 @@ function App() {
           path="/"
           render={() => <AstronautsList astronauts={astronauts} />}
         />
+        <Route exact path="/register" render={() => <UserRegisterForm />} />
       </Switch>
     </div>
   );
