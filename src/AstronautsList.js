@@ -66,8 +66,8 @@ function AstronautsList({ astronauts }) {
                 <TableCell component="th" scope="row">
                   {index + 1}
                 </TableCell>
-                <TableCell>{astronaut.firstname}</TableCell>
-                <TableCell>{astronaut.lastname}</TableCell>
+                <TableCell>{astronaut.firstName}</TableCell>
+                <TableCell>{astronaut.lastName}</TableCell>
                 <TableCell>
                   {astronaut.birthday
                     .toLocaleString("en-GB", {

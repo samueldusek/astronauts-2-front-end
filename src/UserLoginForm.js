@@ -3,12 +3,31 @@ import useInputState from "./hooks/useInputState";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import { Paper, Typography } from "@material-ui/core";
+import axios from "axios";
 
 function UserLoginForm() {
   const [username, handleUsernameChange, resetUsername] = useInputState("");
   const [password, handlePasswordChange, resetPassword] = useInputState("");
   const handleSubmit = (evt) => {
     evt.preventDefault();
+
+    axios({
+      method: "post",
+      baseURL: "http://localhost:3000/api/",
+      url: "/users/login",
+      data: {
+        username: username,
+        password: password,
+      },
+    })
+      .then(function (response) {
+        console.log(response.data.user);
+        window.localStorage.setItem("token", response.data.user.token);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
     resetUsername();
     resetPassword();
   };

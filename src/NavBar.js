@@ -27,13 +27,13 @@ function NavBar() {
           <Typography variant="h6" className={classes.title}>
             Astronauts
           </Typography>
-          <Button variant="contained" component={Link} to="/">
+          <Button variant="contained" component={Link} to="/astronauts">
             All astronauts
           </Button>
           <Button
             variant="contained"
             component={Link}
-            to="/add"
+            to="/astronauts/add"
             style={{ marginLeft: "1rem" }}
           >
             Add astronaut
