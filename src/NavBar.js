@@ -15,10 +15,12 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
+    textTransform: "uppercase",
   },
 }));
 
-function NavBar() {
+function NavBar(props) {
+  const { isUserLoggedIn } = props;
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -27,33 +29,49 @@ function NavBar() {
           <Typography variant="h6" className={classes.title}>
             Astronauts
           </Typography>
-          <Button variant="contained" component={Link} to="/astronauts">
-            All astronauts
-          </Button>
-          <Button
-            variant="contained"
-            component={Link}
-            to="/astronauts/add"
-            style={{ marginLeft: "1rem" }}
-          >
-            Add astronaut
-          </Button>
-          <Button
-            variant="contained"
-            component={Link}
-            to="/register"
-            style={{ marginLeft: "1rem" }}
-          >
-            Sign up
-          </Button>
-          <Button
-            variant="contained"
-            component={Link}
-            to="/login"
-            style={{ marginLeft: "1rem" }}
-          >
-            Login
-          </Button>
+          {isUserLoggedIn && (
+            <>
+              <Button variant="contained" component={Link} to="/astronauts">
+                All astronauts
+              </Button>
+              <Button
+                variant="contained"
+                component={Link}
+                to="/astronauts/add"
+                style={{ marginLeft: "1rem" }}
+              >
+                Add astronaut
+              </Button>
+              <Button
+                variant="contained"
+                component={Link}
+                to="/login"
+                style={{ marginLeft: "1rem" }}
+              >
+                Logout
+              </Button>
+            </>
+          )}
+          {!isUserLoggedIn && (
+            <>
+              <Button
+                variant="contained"
+                component={Link}
+                to="/register"
+                style={{ marginLeft: "1rem" }}
+              >
+                Sign up
+              </Button>
+              <Button
+                variant="contained"
+                component={Link}
+                to="/login"
+                style={{ marginLeft: "1rem" }}
+              >
+                Login
+              </Button>
+            </>
+          )}
         </Toolbar>
       </AppBar>
     </div>

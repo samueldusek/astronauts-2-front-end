@@ -6,8 +6,8 @@ import { Paper, Typography } from "@material-ui/core";
 
 function AddAstronautForm(props) {
   const { addAstronaut, history } = props;
-  const [firstname, handleFirstnameChange, resetFirstname] = useInputState("");
-  const [lastname, handleLastnameChange, resetLastname] = useInputState("");
+  const [firstName, handleFirstnameChange, resetFirstname] = useInputState("");
+  const [lastName, handleLastnameChange, resetLastname] = useInputState("");
   const [birthday, handleBirthdayChange, resetBirthday] = useInputState("");
   const [superpower, handleSuperpowerChange, resetSuperpower] =
     useInputState("");
@@ -15,8 +15,8 @@ function AddAstronautForm(props) {
     evt.preventDefault();
     const birthdayDate = new Date(birthday);
     const newAstronaut = {
-      firstname,
-      lastname,
+      firstName,
+      lastName,
       birthday: birthdayDate,
       superpower,
     };
@@ -25,7 +25,7 @@ function AddAstronautForm(props) {
     resetLastname();
     resetBirthday();
     resetSuperpower();
-    history.push("/");
+    history.push("/astronauts");
   };
   return (
     <Paper
@@ -46,7 +46,7 @@ function AddAstronautForm(props) {
           required
           label="Firstname"
           onChange={handleFirstnameChange}
-          value={firstname}
+          value={firstName}
           variant="outlined"
           margin="normal"
           fullWidth
@@ -56,7 +56,7 @@ function AddAstronautForm(props) {
           required
           label="Lastname"
           onChange={handleLastnameChange}
-          value={lastname}
+          value={lastName}
           variant="outlined"
           margin="normal"
           fullWidth

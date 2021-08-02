@@ -94,7 +94,12 @@ function AstronautsList({ astronauts }) {
         disableGutters={true}
         className={classes.buttonContainer}
       >
-        <Button color="primary" variant="contained" component={Link} to="/add">
+        <Button
+          color="primary"
+          variant="contained"
+          component={Link}
+          to="/astronauts/add"
+        >
           Add astronaut
         </Button>
       </Container>

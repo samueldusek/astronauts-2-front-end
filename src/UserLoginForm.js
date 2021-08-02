@@ -5,7 +5,8 @@ import TextField from "@material-ui/core/TextField";
 import { Paper, Typography } from "@material-ui/core";
 import axios from "axios";
 
-function UserLoginForm() {
+function UserLoginForm(props) {
+  const { setIsUserLoggedIn } = props;
   const [username, handleUsernameChange, resetUsername] = useInputState("");
   const [password, handlePasswordChange, resetPassword] = useInputState("");
   const handleSubmit = (evt) => {
@@ -23,6 +24,7 @@ function UserLoginForm() {
       .then(function (response) {
         console.log(response.data.user);
         window.localStorage.setItem("token", response.data.user.token);
+        setIsUserLoggedIn(true);
       })
       .catch(function (error) {
         console.log(error);
