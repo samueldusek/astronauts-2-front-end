@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function NavBar(props) {
-  const { isUserLoggedIn } = props;
+  const { isUserLoggedIn, logout } = props;
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -47,6 +47,7 @@ function NavBar(props) {
                 component={Link}
                 to="/login"
                 style={{ marginLeft: "1rem" }}
+                onClick={() => logout()}
               >
                 Logout
               </Button>

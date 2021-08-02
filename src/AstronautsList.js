@@ -36,7 +36,8 @@ const useStyles = makeStyles({
   },
 });
 
-function AstronautsList({ astronauts }) {
+function AstronautsList(props) {
+  const { astronauts, deleteAstronaut } = props;
   const classes = useStyles();
   return (
     <Container maxWidth="md">
@@ -62,7 +63,7 @@ function AstronautsList({ astronauts }) {
           </TableHead>
           <TableBody>
             {astronauts.map((astronaut, index) => (
-              <TableRow key={astronaut.id} hover>
+              <TableRow key={astronaut._id} hover>
                 <TableCell component="th" scope="row">
                   {index + 1}
                 </TableCell>
@@ -77,10 +78,17 @@ function AstronautsList({ astronauts }) {
                 </TableCell>
                 <TableCell>{astronaut.superpower}</TableCell>
                 <TableCell>
-                  <IconButton aria-label="edit">
+                  <IconButton
+                    aria-label="edit"
+                    component={Link}
+                    to={`/astronauts/${astronaut._id}`}
+                  >
                     <EditIcon />
                   </IconButton>
-                  <IconButton aria-label="delete">
+                  <IconButton
+                    aria-label="delete"
+                    onClick={() => deleteAstronaut(astronaut._id)}
+                  >
                     <DeleteOutlineIcon />
                   </IconButton>
                 </TableCell>

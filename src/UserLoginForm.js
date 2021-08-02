@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import useInputState from "./hooks/useInputState";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import { Paper, Typography } from "@material-ui/core";
 import axios from "axios";
+import { Redirect } from "react-router-dom";
 
 function UserLoginForm(props) {
   const { setIsUserLoggedIn } = props;
   const [username, handleUsernameChange, resetUsername] = useInputState("");
   const [password, handlePasswordChange, resetPassword] = useInputState("");
+  const [shouldRedirect, setShouldRedirect] = useState(false);
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
@@ -25,6 +27,7 @@ function UserLoginForm(props) {
         console.log(response.data.user);
         window.localStorage.setItem("token", response.data.user.token);
         setIsUserLoggedIn(true);
+        setShouldRedirect(true);
       })
       .catch(function (error) {
         console.log(error);
@@ -79,6 +82,7 @@ function UserLoginForm(props) {
           Log in
         </Button>
       </form>
+      {shouldRedirect && <Redirect to="/astronauts" />}
     </Paper>
   );
 }

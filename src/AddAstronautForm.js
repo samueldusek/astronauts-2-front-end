@@ -5,12 +5,30 @@ import TextField from "@material-ui/core/TextField";
 import { Paper, Typography } from "@material-ui/core";
 
 function AddAstronautForm(props) {
-  const { addAstronaut, history } = props;
-  const [firstName, handleFirstnameChange, resetFirstname] = useInputState("");
-  const [lastName, handleLastnameChange, resetLastname] = useInputState("");
-  const [birthday, handleBirthdayChange, resetBirthday] = useInputState("");
+  const { handleAstronaut, history, astronauts } = props;
+  const { id } = props.match.params || "";
+  let initFirstName = "";
+  let initLastName = "";
+  let initBirthday = "";
+  let initSuperpower = "";
+
+  const astronautToEdit =
+    astronauts.find((astronaut) => astronaut._id === id) || false;
+  console.log(astronautToEdit);
+  if (astronautToEdit) {
+    initFirstName = astronautToEdit.firstName;
+    initLastName = astronautToEdit.lastName;
+    initBirthday = astronautToEdit.birthday.toISOString().slice(0, 10);
+    initSuperpower = astronautToEdit.superpower;
+  }
+  const [firstName, handleFirstnameChange, resetFirstname] =
+    useInputState(initFirstName);
+  const [lastName, handleLastnameChange, resetLastname] =
+    useInputState(initLastName);
+  const [birthday, handleBirthdayChange, resetBirthday] =
+    useInputState(initBirthday);
   const [superpower, handleSuperpowerChange, resetSuperpower] =
-    useInputState("");
+    useInputState(initSuperpower);
   const handleSubmit = (evt) => {
     evt.preventDefault();
     const birthdayDate = new Date(birthday);
@@ -20,7 +38,7 @@ function AddAstronautForm(props) {
       birthday: birthdayDate,
       superpower,
     };
-    addAstronaut(newAstronaut);
+    handleAstronaut(newAstronaut, id);
     resetFirstname();
     resetLastname();
     resetBirthday();
