@@ -43,7 +43,7 @@ function UserRegisterForm() {
           variant="outlined"
           margin="normal"
           fullWidth
-          placeholder="Enter the username."
+          placeholder="Choose your username."
         />
         <TextField
           required
@@ -54,7 +54,7 @@ function UserRegisterForm() {
           variant="outlined"
           margin="normal"
           fullWidth
-          placeholder="Enter the email."
+          placeholder="Enter your email."
         />
         <TextField
           required

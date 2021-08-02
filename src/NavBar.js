@@ -28,7 +28,7 @@ function NavBar() {
             Astronauts
           </Typography>
           <Button variant="contained" component={Link} to="/">
-            All astronauts{" "}
+            All astronauts
           </Button>
           <Button
             variant="contained"
@@ -37,6 +37,22 @@ function NavBar() {
             style={{ marginLeft: "1rem" }}
           >
             Add astronaut
+          </Button>
+          <Button
+            variant="contained"
+            component={Link}
+            to="/register"
+            style={{ marginLeft: "1rem" }}
+          >
+            Sign up
+          </Button>
+          <Button
+            variant="contained"
+            component={Link}
+            to="/login"
+            style={{ marginLeft: "1rem" }}
+          >
+            Login
           </Button>
         </Toolbar>
       </AppBar>
