@@ -1,5 +1,6 @@
 import { Route, Switch } from "react-router-dom";
 import { useState, useEffect } from "react";
+import useAstronautsState from "./hooks/useAstronautsState";
 import AstronautsList from "./AstronautsList";
 import NavBar from "./NavBar";
 import AddAstronautForm from "./AddAstronautForm";
@@ -9,10 +10,16 @@ import axios from "axios";
 import useUserState from "./hooks/useUserState";
 
 function App() {
-  const [astronauts, setAstronauts] = useState([]);
+  const {
+    astronauts,
+    setAstronauts,
+    addAstronaut,
+    deleteAstronaut,
+    editAstronaut,
+  } = useAstronautsState([]);
   const [isUserLoggedIn, setIsUserLoggedIn] = useUserState(false);
 
-  const addAstronaut = (astronaut) => {
+  const handleAddAstronaut = (astronaut) => {
     axios({
       method: "post",
       baseURL: "http://localhost:3000/api/",
@@ -26,16 +33,15 @@ function App() {
       },
     })
       .then(function (response) {
-        console.log(response.data.astronaut);
         const newAstronaut = { ...astronaut, _id: response.data.astronaut._id };
-        setAstronauts([...astronauts, newAstronaut]);
+        addAstronaut(newAstronaut);
       })
       .catch(function (error) {
         console.log(error);
       });
   };
 
-  const editAstronaut = (astronaut, id) => {
+  const handleEditAstronaut = (astronaut, id) => {
     axios({
       method: "put",
       baseURL: "http://localhost:3000/api/",
@@ -49,20 +55,15 @@ function App() {
       },
     })
       .then(function (response) {
-        console.log(response.data.astronaut);
         const editedAstronaut = { ...astronaut, _id: id };
-        const updatedAstronauts = astronauts.map((astronaut) => {
-          return astronaut._id === id ? editedAstronaut : astronaut;
-        });
-        console.log(updatedAstronauts);
-        setAstronauts([...updatedAstronauts]);
+        editAstronaut(editedAstronaut);
       })
       .catch(function (error) {
         console.log(error);
       });
   };
 
-  const deleteAstronaut = (astronautId) => {
+  const handleDeleteAstronaut = (astronautId) => {
     axios({
       method: "delete",
       baseURL: "http://localhost:3000/api/",
@@ -70,11 +71,7 @@ function App() {
       headers: { jwtToken: window.localStorage.getItem("token") },
     })
       .then(function (response) {
-        console.log(response.data);
-        const updatedAstronauts = astronauts.filter(
-          (astronaut) => astronaut._id !== astronautId
-        );
-        setAstronauts(updatedAstronauts);
+        deleteAstronaut(astronautId);
       })
       .catch(function (error) {
         console.log(error);
@@ -86,28 +83,6 @@ function App() {
     setIsUserLoggedIn(false);
   };
 
-  useEffect(() => {
-    async function getAllAstronauts() {
-      const response = await axios({
-        method: "get",
-        baseURL: "http://localhost:3000/api/",
-        url: "/astronauts",
-        headers: { jwtToken: window.localStorage.getItem("token") },
-      });
-      const fetchedAstronauts = response.data;
-      const editedFetchedAstronauts = fetchedAstronauts.map((astronaut) => {
-        return {
-          ...astronaut,
-          birthday: new Date(astronaut.birthday),
-        };
-      });
-      setAstronauts(editedFetchedAstronauts);
-    }
-    if (isUserLoggedIn) {
-      getAllAstronauts();
-    }
-  }, [isUserLoggedIn]);
-
   return (
     <div className="App">
       <NavBar isUserLoggedIn={isUserLoggedIn} logout={logout} />
@@ -118,7 +93,7 @@ function App() {
           render={(routeProps) => (
             <AddAstronautForm
               astronauts={astronauts}
-              handleAstronaut={addAstronaut}
+              handleAstronaut={handleAddAstronaut}
               {...routeProps}
             />
           )}
@@ -129,7 +104,7 @@ function App() {
           render={() => (
             <AstronautsList
               astronauts={astronauts}
-              deleteAstronaut={deleteAstronaut}
+              deleteAstronaut={handleDeleteAstronaut}
             />
           )}
         />
@@ -139,7 +114,7 @@ function App() {
           render={(routeProps) => (
             <AddAstronautForm
               astronauts={astronauts}
-              handleAstronaut={editAstronaut}
+              handleAstronaut={handleEditAstronaut}
               {...routeProps}
             />
           )}
