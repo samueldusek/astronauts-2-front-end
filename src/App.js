@@ -10,15 +10,14 @@ import axios from "axios";
 import useUserState from "./hooks/useUserState";
 
 function App() {
+  const [isUserLoggedIn, setIsUserLoggedIn] = useUserState(false);
   const {
     astronauts,
     setAstronauts,
     addAstronaut,
     deleteAstronaut,
     editAstronaut,
-  } = useAstronautsState([]);
-  const [isUserLoggedIn, setIsUserLoggedIn] = useUserState(false);
-
+  } = useAstronautsState([], isUserLoggedIn);
   const handleAddAstronaut = (astronaut) => {
     axios({
       method: "post",

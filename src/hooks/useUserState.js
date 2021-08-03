@@ -1,8 +1,19 @@
 import { useState } from "react";
+import jwtDecode from "jwt-decode";
 
-function useUserState(initialValue) {
-  const isToken = window.localStorage.getItem("token") ? true : false;
-  const [isLoggedIn, setIsLoggedIn] = useState(isToken || initialValue);
+function useUserState() {
+  let initialValue = false;
+  const token = window.localStorage.getItem("token");
+  if (token) {
+    const decodedToken = jwtDecode(token);
+    const now = new Date().getTime() / 1000;
+    if (decodedToken.exp > now) {
+      initialValue = true;
+    } else {
+      window.localStorage.removeItem("token");
+    }
+  }
+  const [isLoggedIn, setIsLoggedIn] = useState(initialValue);
   return [isLoggedIn, setIsLoggedIn];
 }
 
