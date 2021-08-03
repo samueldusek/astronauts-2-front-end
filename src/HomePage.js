@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import background from "./img/logo3.svg";
 import Button from "@material-ui/core/Button";
+import theme from "./theme";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,6 +20,9 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     justifyContent: "center",
     margin: "auto",
+    "& a:hover": {
+      transform: "scale(1.1)",
+    },
   },
   heading: {
     fontSize: "7rem",
@@ -29,8 +33,12 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "2rem",
   },
   signupButton: {
-    width: "150px",
-    margin: "2rem auto",
+    height: "50px",
+    width: "180px",
+    margin: "3rem auto",
+    fontSize: "1.1rem",
+    letterSpacing: "0.3rem",
+    fontWeight: "bold",
   },
 }));
 
@@ -51,6 +59,7 @@ function HomePage() {
         </p>
         <Button
           className={classes.signupButton}
+          color="secondary"
           variant="contained"
           component={Link}
           to="/register"

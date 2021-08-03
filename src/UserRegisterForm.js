@@ -5,6 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import { Paper, Typography } from "@material-ui/core";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
+import img from "./img/logo2.svg";
 
 function UserRegisterForm() {
   const [username, handleUsernameChange, resetUsername] = useInputState("");
@@ -54,9 +55,14 @@ function UserRegisterForm() {
       }}
     >
       <form onSubmit={handleSubmit}>
-        <Typography component="h1" variant="h5" align="center">
-          Register
+        <Typography component="h1" variant="h4" align="center">
+          Register and start recording your astronauts
         </Typography>
+        <img
+          src={img}
+          alt="Astronaut and spaceship."
+          style={{ width: "80%", marginLeft: "10%" }}
+        />
         <TextField
           autoFocus
           required

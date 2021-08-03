@@ -10,6 +10,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     marginTop: "auto",
   },
+  footer: {
+    backgroundColor: "#212529",
+  },
   title: {
     flexGrow: 1,
   },
@@ -22,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 function Footer() {
   const classes = useStyles();
   return (
-    <AppBar position="static">
+    <AppBar position="static" className={classes.footer}>
       <Toolbar>
         <Typography variant="caption" className={classes.title} align="center">
           &copy;Astronauts. Vytvořil

@@ -3,6 +3,7 @@ import useInputState from "./hooks/useInputState";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import { Paper, Typography } from "@material-ui/core";
+import img from "./img/logo2.svg";
 
 function AddAstronautForm(props) {
   const { handleAstronaut, history, astronauts } = props;
@@ -56,9 +57,14 @@ function AddAstronautForm(props) {
       }}
     >
       <form onSubmit={handleSubmit}>
-        <Typography component="h1" variant="h5" align="center">
-          New Astronaut
+        <Typography component="h1" variant="h4" align="center">
+          Add new team member
         </Typography>
+        <img
+          src={img}
+          alt="Astronaut and spaceship."
+          style={{ width: "80%", marginLeft: "10%", marginTop: "1rem" }}
+        />
         <TextField
           autoFocus
           required

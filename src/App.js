@@ -10,6 +10,9 @@ import useUserState from "./hooks/useUserState";
 import HomePage from "./HomePage";
 import Footer from "./Footer";
 import "./App.css";
+import theme from "./theme";
+
+import { ThemeProvider } from "@material-ui/styles";
 
 function App() {
   const [isUserLoggedIn, setIsUserLoggedIn, logoutUser] = useUserState(false);
@@ -82,54 +85,56 @@ function App() {
 
   return (
     <div className="App">
-      <NavBar isUserLoggedIn={isUserLoggedIn} logout={logoutUser} />
-      <Switch>
-        <Route
-          exact
-          path="/astronauts/add"
-          render={(routeProps) => (
-            <AddAstronautForm
-              astronauts={astronauts}
-              handleAstronaut={handleAddAstronaut}
-              {...routeProps}
-            />
-          )}
-        />
-        <Route
-          exact
-          path="/astronauts"
-          render={() => (
-            <AstronautsList
-              astronauts={astronauts}
-              deleteAstronaut={handleDeleteAstronaut}
-            />
-          )}
-        />
-        <Route
-          exact
-          path="/astronauts/:id"
-          render={(routeProps) => (
-            <AddAstronautForm
-              astronauts={astronauts}
-              handleAstronaut={handleEditAstronaut}
-              {...routeProps}
-            />
-          )}
-        />
-        <Route
-          exact
-          path="/login"
-          render={(routeProps) => (
-            <UserLoginForm
-              setIsUserLoggedIn={setIsUserLoggedIn}
-              {...routeProps}
-            />
-          )}
-        />
-        <Route exact path="/register" render={() => <UserRegisterForm />} />
-        <Route exact path="/" render={() => <HomePage />} />
-      </Switch>
-      <Footer />
+      <ThemeProvider theme={theme}>
+        <NavBar isUserLoggedIn={isUserLoggedIn} logout={logoutUser} />
+        <Switch>
+          <Route
+            exact
+            path="/astronauts/add"
+            render={(routeProps) => (
+              <AddAstronautForm
+                astronauts={astronauts}
+                handleAstronaut={handleAddAstronaut}
+                {...routeProps}
+              />
+            )}
+          />
+          <Route
+            exact
+            path="/astronauts"
+            render={() => (
+              <AstronautsList
+                astronauts={astronauts}
+                deleteAstronaut={handleDeleteAstronaut}
+              />
+            )}
+          />
+          <Route
+            exact
+            path="/astronauts/:id"
+            render={(routeProps) => (
+              <AddAstronautForm
+                astronauts={astronauts}
+                handleAstronaut={handleEditAstronaut}
+                {...routeProps}
+              />
+            )}
+          />
+          <Route
+            exact
+            path="/login"
+            render={(routeProps) => (
+              <UserLoginForm
+                setIsUserLoggedIn={setIsUserLoggedIn}
+                {...routeProps}
+              />
+            )}
+          />
+          <Route exact path="/register" render={() => <UserRegisterForm />} />
+          <Route exact path="/" render={() => <HomePage />} />
+        </Switch>
+        <Footer />
+      </ThemeProvider>
     </div>
   );
 }

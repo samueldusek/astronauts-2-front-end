@@ -13,8 +13,10 @@ import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import EditIcon from "@material-ui/icons/Edit";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
+import myTheme from "./theme";
+import img from "./img/logo2.svg";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
@@ -26,7 +28,7 @@ const useStyles = makeStyles({
     marginTop: "2rem",
   },
   tableHeader: {
-    backgroundColor: "#3f51b5",
+    backgroundColor: "#212529",
   },
   tableHeaderCell: {
     color: "white",
@@ -37,11 +39,11 @@ const useStyles = makeStyles({
     display: "flex",
     justifyContent: "end",
   },
-});
+}));
 
 function AstronautsList(props) {
   const { astronauts, deleteAstronaut } = props;
-  const classes = useStyles();
+  const classes = useStyles(myTheme);
   return (
     <div className={classes.root}>
       <Container maxWidth="md">

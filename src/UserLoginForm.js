@@ -5,6 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import { Paper, Typography } from "@material-ui/core";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
+import img from "./img/logo2.svg";
 
 function UserLoginForm(props) {
   const { setIsUserLoggedIn } = props;
@@ -47,8 +48,21 @@ function UserLoginForm(props) {
       }}
     >
       <form onSubmit={handleSubmit}>
-        <Typography component="h1" variant="h5" align="center">
-          Log in
+        <Typography component="h1" variant="h3" align="center">
+          Welcome back!
+        </Typography>
+        <img
+          src={img}
+          alt="Astronaut and spaceship."
+          style={{ width: "80%", marginLeft: "10%" }}
+        />
+        <Typography
+          component="h2"
+          variant="h5"
+          align="center"
+          style={{ marginTop: "1rem" }}
+        >
+          Just log in and you are ready to lunch!
         </Typography>
         <TextField
           autoFocus
