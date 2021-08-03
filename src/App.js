@@ -40,9 +40,10 @@ function App() {
       .then(function (response) {
         const newAstronaut = { ...astronaut, _id: response.data.astronaut._id };
         addAstronaut(newAstronaut);
+        return response.data;
       })
       .catch(function (error) {
-        console.log(error);
+        return error.response.data;
       });
   };
 
