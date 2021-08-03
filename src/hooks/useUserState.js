@@ -14,7 +14,11 @@ function useUserState() {
     }
   }
   const [isLoggedIn, setIsLoggedIn] = useState(initialValue);
-  return [isLoggedIn, setIsLoggedIn];
+  const logoutUser = () => {
+    window.localStorage.removeItem("token");
+    setIsLoggedIn(false);
+  };
+  return [isLoggedIn, setIsLoggedIn, logoutUser];
 }
 
 export default useUserState;

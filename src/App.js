@@ -1,5 +1,4 @@
 import { Route, Switch } from "react-router-dom";
-import { useState, useEffect } from "react";
 import useAstronautsState from "./hooks/useAstronautsState";
 import AstronautsList from "./AstronautsList";
 import NavBar from "./NavBar";
@@ -8,9 +7,12 @@ import UserRegisterForm from "./UserRegisterForm";
 import UserLoginForm from "./UserLoginForm";
 import axios from "axios";
 import useUserState from "./hooks/useUserState";
+import HomePage from "./HomePage";
+import Footer from "./Footer";
+import "./App.css";
 
 function App() {
-  const [isUserLoggedIn, setIsUserLoggedIn] = useUserState(false);
+  const [isUserLoggedIn, setIsUserLoggedIn, logoutUser] = useUserState(false);
   const {
     astronauts,
     setAstronauts,
@@ -18,6 +20,7 @@ function App() {
     deleteAstronaut,
     editAstronaut,
   } = useAstronautsState([], isUserLoggedIn);
+
   const handleAddAstronaut = (astronaut) => {
     axios({
       method: "post",
@@ -77,14 +80,9 @@ function App() {
       });
   };
 
-  const logout = () => {
-    window.localStorage.removeItem("token");
-    setIsUserLoggedIn(false);
-  };
-
   return (
     <div className="App">
-      <NavBar isUserLoggedIn={isUserLoggedIn} logout={logout} />
+      <NavBar isUserLoggedIn={isUserLoggedIn} logout={logoutUser} />
       <Switch>
         <Route
           exact
@@ -122,11 +120,16 @@ function App() {
           exact
           path="/login"
           render={(routeProps) => (
-            <UserLoginForm setIsUserLoggedIn={setIsUserLoggedIn} />
+            <UserLoginForm
+              setIsUserLoggedIn={setIsUserLoggedIn}
+              {...routeProps}
+            />
           )}
         />
         <Route exact path="/register" render={() => <UserRegisterForm />} />
+        <Route exact path="/" render={() => <HomePage />} />
       </Switch>
+      <Footer />
     </div>
   );
 }

@@ -15,6 +15,9 @@ import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
+  root: {
+    flexGrow: 1,
+  },
   table: {
     minWidth: 650,
   },
@@ -40,78 +43,82 @@ function AstronautsList(props) {
   const { astronauts, deleteAstronaut } = props;
   const classes = useStyles();
   return (
-    <Container maxWidth="md">
-      <TableContainer component={Paper} className={classes.tableContainer}>
-        <Table className={classes.table} aria-label="simple table">
-          <TableHead className={classes.tableHeader}>
-            <TableRow>
-              <TableCell className={classes.tableHeaderCell}>#</TableCell>
-              <TableCell className={classes.tableHeaderCell}>
-                Firstname
-              </TableCell>
-              <TableCell className={classes.tableHeaderCell}>
-                Lastname
-              </TableCell>
-              <TableCell className={classes.tableHeaderCell}>
-                Birthday
-              </TableCell>
-              <TableCell className={classes.tableHeaderCell}>
-                Superpower
-              </TableCell>
-              <TableCell className={classes.tableHeaderCell}>Options</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {astronauts.map((astronaut, index) => (
-              <TableRow key={astronaut._id} hover>
-                <TableCell component="th" scope="row">
-                  {index + 1}
+    <div className={classes.root}>
+      <Container maxWidth="md">
+        <TableContainer component={Paper} className={classes.tableContainer}>
+          <Table className={classes.table} aria-label="simple table">
+            <TableHead className={classes.tableHeader}>
+              <TableRow>
+                <TableCell className={classes.tableHeaderCell}>#</TableCell>
+                <TableCell className={classes.tableHeaderCell}>
+                  Firstname
                 </TableCell>
-                <TableCell>{astronaut.firstName}</TableCell>
-                <TableCell>{astronaut.lastName}</TableCell>
-                <TableCell>
-                  {astronaut.birthday
-                    .toLocaleString("en-GB", {
-                      timeZone: "UTC",
-                    })
-                    .slice(0, 10)}
+                <TableCell className={classes.tableHeaderCell}>
+                  Lastname
                 </TableCell>
-                <TableCell>{astronaut.superpower}</TableCell>
-                <TableCell>
-                  <IconButton
-                    aria-label="edit"
-                    component={Link}
-                    to={`/astronauts/${astronaut._id}`}
-                  >
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton
-                    aria-label="delete"
-                    onClick={() => deleteAstronaut(astronaut._id)}
-                  >
-                    <DeleteOutlineIcon />
-                  </IconButton>
+                <TableCell className={classes.tableHeaderCell}>
+                  Birthday
+                </TableCell>
+                <TableCell className={classes.tableHeaderCell}>
+                  Superpower
+                </TableCell>
+                <TableCell className={classes.tableHeaderCell}>
+                  Options
                 </TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <Container
-        maxWidth={false}
-        disableGutters={true}
-        className={classes.buttonContainer}
-      >
-        <Button
-          color="primary"
-          variant="contained"
-          component={Link}
-          to="/astronauts/add"
+            </TableHead>
+            <TableBody>
+              {astronauts.map((astronaut, index) => (
+                <TableRow key={astronaut._id} hover>
+                  <TableCell component="th" scope="row">
+                    {index + 1}
+                  </TableCell>
+                  <TableCell>{astronaut.firstName}</TableCell>
+                  <TableCell>{astronaut.lastName}</TableCell>
+                  <TableCell>
+                    {astronaut.birthday
+                      .toLocaleString("en-GB", {
+                        timeZone: "UTC",
+                      })
+                      .slice(0, 10)}
+                  </TableCell>
+                  <TableCell>{astronaut.superpower}</TableCell>
+                  <TableCell>
+                    <IconButton
+                      aria-label="edit"
+                      component={Link}
+                      to={`/astronauts/${astronaut._id}`}
+                    >
+                      <EditIcon />
+                    </IconButton>
+                    <IconButton
+                      aria-label="delete"
+                      onClick={() => deleteAstronaut(astronaut._id)}
+                    >
+                      <DeleteOutlineIcon />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <Container
+          maxWidth={false}
+          disableGutters={true}
+          className={classes.buttonContainer}
         >
-          Add astronaut
-        </Button>
+          <Button
+            color="primary"
+            variant="contained"
+            component={Link}
+            to="/astronauts/add"
+          >
+            Add astronaut
+          </Button>
+        </Container>
       </Container>
-    </Container>
+    </div>
   );
 }
 
