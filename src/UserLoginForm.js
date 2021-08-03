@@ -6,36 +6,60 @@ import { Paper, Typography } from "@material-ui/core";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 import img from "./img/logo2.svg";
+const { loginValidation } = require("./validations/users");
 
 function UserLoginForm(props) {
+  const [validationErrorMsg, setValidationErrorMsg] = useState("");
   const { setIsUserLoggedIn } = props;
-  const [username, handleUsernameChange, resetUsername] = useInputState("");
-  const [password, handlePasswordChange, resetPassword] = useInputState("");
+  const [
+    username,
+    handleUsernameChange,
+    resetUsername,
+    isUsernameError,
+    setIsUsernameError,
+  ] = useInputState("", false);
+  const [
+    password,
+    handlePasswordChange,
+    resetPassword,
+    isPasswordError,
+    setIsPasswordError,
+  ] = useInputState("", false);
   const [shouldRedirect, setShouldRedirect] = useState(false);
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
-    axios({
-      method: "post",
-      baseURL: "http://localhost:3000/api/",
-      url: "/users/login",
-      data: {
-        username: username,
-        password: password,
-      },
-    })
-      .then(function (response) {
-        console.log(response.data.user);
-        window.localStorage.setItem("token", response.data.user.token);
-        setIsUserLoggedIn(true);
-        setShouldRedirect(true);
+    const { error } = loginValidation({ username, password });
+    if (error) {
+      if (error.details[0].context.key === "username") {
+        setIsUsernameError(true);
+      } else {
+        setIsPasswordError(true);
+      }
+      setValidationErrorMsg(error.details[0].message);
+    } else {
+      axios({
+        method: "post",
+        baseURL: "http://localhost:3000/api/",
+        url: "/users/login",
+        data: {
+          username: username,
+          password: password,
+        },
       })
-      .catch(function (error) {
-        console.log(error);
-      });
+        .then(function (response) {
+          console.log(response.data.user);
+          window.localStorage.setItem("token", response.data.user.token);
+          setIsUserLoggedIn(true);
+          setShouldRedirect(true);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
 
-    resetUsername();
-    resetPassword();
+      resetUsername();
+      resetPassword();
+    }
   };
   return (
     <Paper
@@ -74,6 +98,8 @@ function UserLoginForm(props) {
           margin="normal"
           fullWidth
           placeholder="Enter your username."
+          error={isUsernameError}
+          helperText={isUsernameError && validationErrorMsg}
         />
         <TextField
           required
@@ -85,6 +111,8 @@ function UserLoginForm(props) {
           margin="normal"
           fullWidth
           placeholder="Enter your password."
+          error={isPasswordError}
+          helperText={isPasswordError && validationErrorMsg}
         />
         <Button
           fullWidth
