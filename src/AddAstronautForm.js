@@ -61,7 +61,7 @@ function AddAstronautForm(props) {
       birthday: birthdayDate,
       superpower,
     };
-    const { error, value } = astronautValidation(newAstronaut);
+    const { error } = astronautValidation(newAstronaut);
     if (error) {
       if (error.details[0].context.key === "firstName") {
         setFirstNameIsValError(true);

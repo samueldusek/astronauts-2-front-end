@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-export default (initialValue, isUserLoggedIn) => {
+const useAstronautsState = (initialValue, isUserLoggedIn) => {
   const [astronauts, setAstronauts] = useState(initialValue);
   useEffect(() => {
     async function getAllAstronauts() {
@@ -51,3 +51,5 @@ export default (initialValue, isUserLoggedIn) => {
     },
   };
 };
+
+export default useAstronautsState;

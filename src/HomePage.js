@@ -3,7 +3,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import background from "./img/logo3.svg";
 import Button from "@material-ui/core/Button";
-import theme from "./theme";
 
 const useStyles = makeStyles((theme) => ({
   root: {

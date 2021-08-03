@@ -14,7 +14,6 @@ import EditIcon from "@material-ui/icons/Edit";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import myTheme from "./theme";
-import img from "./img/logo2.svg";
 
 const useStyles = makeStyles((theme) => ({
   root: {

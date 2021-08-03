@@ -6,43 +6,83 @@ import { Paper, Typography } from "@material-ui/core";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 import img from "./img/logo2.svg";
+const { registerValidation } = require("./validations/users");
 
 function UserRegisterForm() {
-  const [username, handleUsernameChange, resetUsername] = useInputState("");
-  const [email, handleEmailChange, resetEmail] = useInputState("");
-  const [password, handlePasswordChange, resetPassword] = useInputState("");
+  const [validationErrorMsg, setValidationErrorMsg] = useState("");
+  const [
+    username,
+    handleUsernameChange,
+    resetUsername,
+    isUsernameError,
+    setIsUsernameError,
+  ] = useInputState("", false);
+  const [email, handleEmailChange, resetEmail, isEmailError, setIsEmailError] =
+    useInputState("", false);
+  const [
+    password,
+    handlePasswordChange,
+    resetPassword,
+    isPasswordError,
+    setIsPasswordError,
+  ] = useInputState("", false);
   const [
     passwordConfirmation,
     handlePasswordConfirmationChange,
     resetPasswordConfirmation,
-  ] = useInputState("");
+    isPasswordConfirtmationError,
+    setIsPasswordConfirmationError,
+  ] = useInputState("", false);
   const [shouldRedirect, setShouldRedirect] = useState(false);
   const handleSubmit = async (evt) => {
     evt.preventDefault();
 
-    axios({
-      method: "post",
-      baseURL: "http://localhost:3000/api/",
-      url: "/users/register",
-      data: {
-        username: username,
-        email: email,
-        password: password,
-        passwordConfirmation: passwordConfirmation,
-      },
-    })
-      .then(function (response) {
-        console.log(response.data.user);
-        setShouldRedirect(true);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    console.log(email);
 
-    resetUsername();
-    resetEmail();
-    resetPassword();
-    resetPasswordConfirmation();
+    const { error } = registerValidation({
+      username: username,
+      email: email,
+      password: password,
+      passwordConfirmation: passwordConfirmation,
+    });
+
+    if (error) {
+      const { key } = error.details[0].context;
+      if (key === "username") {
+        setIsUsernameError(true);
+      } else if (key === "email") {
+        setIsEmailError(true);
+      } else if (key === "password") {
+        setIsPasswordError(true);
+      } else {
+        setIsPasswordConfirmationError(true);
+      }
+      setValidationErrorMsg(error.details[0].message);
+    } else {
+      axios({
+        method: "post",
+        baseURL: "http://localhost:3000/api/",
+        url: "/users/register",
+        data: {
+          username: username,
+          email: email,
+          password: password,
+          passwordConfirmation: passwordConfirmation,
+        },
+      })
+        .then(function (response) {
+          console.log(response.data.user);
+          setShouldRedirect(true);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+      resetUsername();
+      resetEmail();
+      resetPassword();
+      resetPasswordConfirmation();
+    }
   };
   return (
     <Paper
@@ -73,6 +113,8 @@ function UserRegisterForm() {
           margin="normal"
           fullWidth
           placeholder="Choose your username."
+          error={isUsernameError}
+          helperText={isUsernameError && validationErrorMsg}
         />
         <TextField
           required
@@ -84,6 +126,8 @@ function UserRegisterForm() {
           margin="normal"
           fullWidth
           placeholder="Enter your email."
+          error={isEmailError}
+          helperText={isEmailError && validationErrorMsg}
         />
         <TextField
           required
@@ -95,6 +139,8 @@ function UserRegisterForm() {
           margin="normal"
           fullWidth
           placeholder="Enter your password."
+          error={isPasswordError}
+          helperText={isPasswordError && validationErrorMsg}
         />
         <TextField
           required
@@ -106,6 +152,8 @@ function UserRegisterForm() {
           margin="normal"
           fullWidth
           placeholder="Enter your password again."
+          error={isPasswordConfirtmationError}
+          helperText={isPasswordConfirtmationError && validationErrorMsg}
         />
         <Button
           fullWidth

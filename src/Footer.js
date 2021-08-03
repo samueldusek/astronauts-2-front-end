@@ -4,7 +4,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import BottomNavigation from "@material-ui/core/BottomNavigation";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,11 +27,11 @@ function Footer() {
     <AppBar position="static" className={classes.footer}>
       <Toolbar>
         <Typography variant="caption" className={classes.title} align="center">
-          &copy;Astronauts. Vytvořil
+          &copy;Astronauts. Created by
           <Link to="https://github.com/samueldusek" className={classes.link}>
             Samuel Dušek
           </Link>
-          pomocí Node.JS, MongoDB a React.
+          with Node.JS, MongoDB a React.
         </Typography>
       </Toolbar>
     </AppBar>
