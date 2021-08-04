@@ -2,13 +2,18 @@ import React, { useState } from "react";
 import useInputState from "./hooks/useInputState";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import { makeStyles } from "@material-ui/core/styles";
 import { Paper, Typography } from "@material-ui/core";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 import img from "./img/logo2.svg";
-const { loginValidation } = require("./validations/users");
+import { loginValidation } from "./validations/users";
+import styles from "./styles/UserLoginFormStyles";
+
+const useStyles = makeStyles(() => styles);
 
 function UserLoginForm({ setIsUserLoggedIn, setIsMessage, setMessage }) {
+  const classes = useStyles();
   const [validationErrorMsg, setValidationErrorMsg] = useState("");
   const [
     username,
@@ -68,23 +73,16 @@ function UserLoginForm({ setIsUserLoggedIn, setIsMessage, setMessage }) {
     }
   };
   return (
-    <div style={{ flexGrow: "1" }}>
-      <Paper
-        elevation={3}
-        style={{
-          maxWidth: "450px",
-          margin: "2rem auto",
-          padding: "1rem",
-        }}
-      >
+    <div className={classes.root}>
+      <Paper className={classes.paper} elevation={3}>
         <form onSubmit={handleSubmit}>
           <Typography component="h1" variant="h3" align="center">
             Welcome back!
           </Typography>
           <img
+            className={classes.image}
             src={img}
             alt="Astronaut and spaceship."
-            style={{ width: "80%", marginLeft: "10%" }}
           />
           <Typography
             component="h2"

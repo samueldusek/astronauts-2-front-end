@@ -13,40 +13,16 @@ import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import EditIcon from "@material-ui/icons/Edit";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
-import myTheme from "./theme";
 import DeleteDialog from "./DeleteDialog";
+import styles from "./styles/AstronautsListStyles";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    marginBottom: "2rem",
-  },
-  table: {
-    minWidth: 650,
-  },
-  tableContainer: {
-    margin: "auto",
-    marginTop: "2rem",
-  },
-  tableHeader: {
-    backgroundColor: "#212529",
-  },
-  tableHeaderCell: {
-    color: "white",
-    fontWeight: "bold",
-  },
-  buttonContainer: {
-    marginTop: "1rem",
-    display: "flex",
-    justifyContent: "end",
-  },
-}));
+const useStyles = makeStyles(() => styles);
 
 function AstronautsList(props) {
+  const classes = useStyles();
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [astronautToDelete, setAstronautToDelete] = useState({});
   const { astronauts, deleteAstronaut } = props;
-  const classes = useStyles(myTheme);
 
   const handleClick = (astronaut) => {
     setIsDeleteDialogOpen(true);

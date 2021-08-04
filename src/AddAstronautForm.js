@@ -3,13 +3,18 @@ import useInputState from "./hooks/useInputState";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import { Paper, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import img from "./img/logo2.svg";
 import { astronautValidation } from "./validations/astronauts";
+import styles from "./styles/AddAstronautFormstyles";
+
+const useStyles = makeStyles(() => styles);
 
 function AddAstronautForm(props) {
   const [validationErrorMsg, setValidationErrorMsg] = useState("");
   const { handleAstronaut, history, astronauts } = props;
   const { id } = props.match.params || "";
+  const classes = useStyles();
   let initFirstName = "";
   let initLastName = "";
   let initBirthday = "";
@@ -89,23 +94,16 @@ function AddAstronautForm(props) {
     }
   };
   return (
-    <div style={{ flexGrow: "1" }}>
-      <Paper
-        elevation={3}
-        style={{
-          maxWidth: "450px",
-          margin: "2rem auto",
-          padding: "1rem",
-        }}
-      >
+    <div className={classes.root}>
+      <Paper className={classes.paper} elevation={3}>
         <form onSubmit={handleSubmit}>
           <Typography component="h1" variant="h4" align="center">
             Add new team member
           </Typography>
           <img
+            className={classes.image}
             src={img}
             alt="Astronaut and spaceship."
-            style={{ width: "80%", marginLeft: "10%", marginTop: "1rem" }}
           />
           <TextField
             autoFocus

@@ -2,32 +2,9 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import img from "./img/logo.svg";
+import styles from "./styles/Page404Styles";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  title: {
-    width: "80%",
-    maxWidth: "500px",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    margin: "auto",
-  },
-  heading: {
-    fontSize: "4rem",
-    color: "black",
-  },
-  subtitle: {
-    color: "black",
-    fontSize: "2rem",
-  },
-  image: {
-    width: "100%",
-    marginTop: "2rem",
-  },
-}));
+const useStyles = makeStyles((theme) => styles);
 
 function Page404() {
   const classes = useStyles();
