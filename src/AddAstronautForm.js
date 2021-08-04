@@ -68,11 +68,12 @@ function AddAstronautForm(props) {
     };
     const { error } = astronautValidation(newAstronaut);
     if (error) {
-      if (error.details[0].context.key === "firstName") {
+      const { key } = error.details[0].context;
+      if (key === "firstName") {
         setFirstNameIsValError(true);
-      } else if (error.details[0].context.key === "lastName") {
+      } else if (key === "lastName") {
         setLastNameIsValError(true);
-      } else if (error.details[0].context.key === "birthday") {
+      } else if (key === "birthday") {
         setBirthdayIsValError(true);
       } else {
         setSuperpowerIsValError(true);
@@ -88,86 +89,88 @@ function AddAstronautForm(props) {
     }
   };
   return (
-    <Paper
-      elevation={3}
-      style={{
-        maxWidth: "450px",
-        margin: "2rem auto",
-        padding: "1rem",
-      }}
-    >
-      <form onSubmit={handleSubmit}>
-        <Typography component="h1" variant="h4" align="center">
-          Add new team member
-        </Typography>
-        <img
-          src={img}
-          alt="Astronaut and spaceship."
-          style={{ width: "80%", marginLeft: "10%", marginTop: "1rem" }}
-        />
-        <TextField
-          autoFocus
-          required
-          label="Firstname"
-          onChange={handleFirstnameChange}
-          value={firstName}
-          variant="outlined"
-          margin="normal"
-          fullWidth
-          placeholder="Enter the firstname."
-          error={isFirstNameValError}
-          helperText={isFirstNameValError && validationErrorMsg}
-        />
-        <TextField
-          required
-          label="Lastname"
-          onChange={handleLastnameChange}
-          value={lastName}
-          variant="outlined"
-          margin="normal"
-          fullWidth
-          placeholder="Enter the lastname."
-          error={isLastNameValError}
-          helperText={isLastNameValError && validationErrorMsg}
-        />
-        <TextField
-          id="date"
-          label="Birthday"
-          type="date"
-          value={birthday}
-          onChange={handleBirthdayChange}
-          variant="outlined"
-          margin="normal"
-          fullWidth
-          InputLabelProps={{
-            shrink: true,
-          }}
-          error={isBirthdayValError}
-          helperText={isBirthdayValError && validationErrorMsg}
-        />
-        <TextField
-          required
-          label="Superpower"
-          onChange={handleSuperpowerChange}
-          value={superpower}
-          variant="outlined"
-          margin="normal"
-          fullWidth
-          placeholder="Enter the superpower."
-          error={isSuperpowerValError}
-          helperText={isSuperpowerValError && validationErrorMsg}
-        />
-        <Button
-          fullWidth
-          type="submit"
-          variant="contained"
-          color="primary"
-          style={{ marginTop: "0.5rem" }}
-        >
-          Save astronaut
-        </Button>
-      </form>
-    </Paper>
+    <div style={{ flexGrow: "1" }}>
+      <Paper
+        elevation={3}
+        style={{
+          maxWidth: "450px",
+          margin: "2rem auto",
+          padding: "1rem",
+        }}
+      >
+        <form onSubmit={handleSubmit}>
+          <Typography component="h1" variant="h4" align="center">
+            Add new team member
+          </Typography>
+          <img
+            src={img}
+            alt="Astronaut and spaceship."
+            style={{ width: "80%", marginLeft: "10%", marginTop: "1rem" }}
+          />
+          <TextField
+            autoFocus
+            required
+            label="Firstname"
+            onChange={handleFirstnameChange}
+            value={firstName}
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            placeholder="Enter the firstname."
+            error={isFirstNameValError}
+            helperText={isFirstNameValError && validationErrorMsg}
+          />
+          <TextField
+            required
+            label="Lastname"
+            onChange={handleLastnameChange}
+            value={lastName}
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            placeholder="Enter the lastname."
+            error={isLastNameValError}
+            helperText={isLastNameValError && validationErrorMsg}
+          />
+          <TextField
+            id="date"
+            label="Birthday"
+            type="date"
+            value={birthday}
+            onChange={handleBirthdayChange}
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            InputLabelProps={{
+              shrink: true,
+            }}
+            error={isBirthdayValError}
+            helperText={isBirthdayValError && validationErrorMsg}
+          />
+          <TextField
+            required
+            label="Superpower"
+            onChange={handleSuperpowerChange}
+            value={superpower}
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            placeholder="Enter the superpower."
+            error={isSuperpowerValError}
+            helperText={isSuperpowerValError && validationErrorMsg}
+          />
+          <Button
+            fullWidth
+            type="submit"
+            variant="contained"
+            color="primary"
+            style={{ marginTop: "0.5rem" }}
+          >
+            Save astronaut
+          </Button>
+        </form>
+      </Paper>
+    </div>
   );
 }
 

@@ -46,7 +46,6 @@ function NavBar(props) {
             {isUserLoggedIn && (
               <>
                 <Button
-                  class={classes.btn}
                   color="primary"
                   variant="contained"
                   component={Link}
@@ -55,7 +54,6 @@ function NavBar(props) {
                   All astronauts
                 </Button>
                 <Button
-                  class={classes.btn}
                   color="primary"
                   variant="contained"
                   component={Link}
@@ -65,7 +63,6 @@ function NavBar(props) {
                   Add astronaut
                 </Button>
                 <Button
-                  class={classes.btn}
                   color="primary"
                   variant="contained"
                   component={Link}
@@ -80,7 +77,6 @@ function NavBar(props) {
             {!isUserLoggedIn && (
               <>
                 <Button
-                  class={classes.btn}
                   color="primary"
                   variant="contained"
                   component={Link}
@@ -90,7 +86,6 @@ function NavBar(props) {
                   Sign up
                 </Button>
                 <Button
-                  class={classes.btn}
                   color="primary"
                   variant="contained"
                   component={Link}

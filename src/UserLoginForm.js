@@ -62,69 +62,71 @@ function UserLoginForm(props) {
     }
   };
   return (
-    <Paper
-      elevation={3}
-      style={{
-        maxWidth: "450px",
-        margin: "2rem auto",
-        padding: "1rem",
-      }}
-    >
-      <form onSubmit={handleSubmit}>
-        <Typography component="h1" variant="h3" align="center">
-          Welcome back!
-        </Typography>
-        <img
-          src={img}
-          alt="Astronaut and spaceship."
-          style={{ width: "80%", marginLeft: "10%" }}
-        />
-        <Typography
-          component="h2"
-          variant="h5"
-          align="center"
-          style={{ marginTop: "1rem" }}
-        >
-          Just log in and you are ready to lunch!
-        </Typography>
-        <TextField
-          autoFocus
-          required
-          label="Username"
-          onChange={handleUsernameChange}
-          value={username}
-          variant="outlined"
-          margin="normal"
-          fullWidth
-          placeholder="Enter your username."
-          error={isUsernameError}
-          helperText={isUsernameError && validationErrorMsg}
-        />
-        <TextField
-          required
-          label="Password"
-          onChange={handlePasswordChange}
-          value={password}
-          type="password"
-          variant="outlined"
-          margin="normal"
-          fullWidth
-          placeholder="Enter your password."
-          error={isPasswordError}
-          helperText={isPasswordError && validationErrorMsg}
-        />
-        <Button
-          fullWidth
-          type="submit"
-          variant="contained"
-          color="primary"
-          style={{ marginTop: "0.5rem" }}
-        >
-          Log in
-        </Button>
-      </form>
-      {shouldRedirect && <Redirect to="/astronauts" />}
-    </Paper>
+    <div style={{ flexGrow: "1" }}>
+      <Paper
+        elevation={3}
+        style={{
+          maxWidth: "450px",
+          margin: "2rem auto",
+          padding: "1rem",
+        }}
+      >
+        <form onSubmit={handleSubmit}>
+          <Typography component="h1" variant="h3" align="center">
+            Welcome back!
+          </Typography>
+          <img
+            src={img}
+            alt="Astronaut and spaceship."
+            style={{ width: "80%", marginLeft: "10%" }}
+          />
+          <Typography
+            component="h2"
+            variant="h5"
+            align="center"
+            style={{ marginTop: "1rem" }}
+          >
+            Just log in and you are ready to lunch!
+          </Typography>
+          <TextField
+            autoFocus
+            required
+            label="Username"
+            onChange={handleUsernameChange}
+            value={username}
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            placeholder="Enter your username."
+            error={isUsernameError}
+            helperText={isUsernameError && validationErrorMsg}
+          />
+          <TextField
+            required
+            label="Password"
+            onChange={handlePasswordChange}
+            value={password}
+            type="password"
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            placeholder="Enter your password."
+            error={isPasswordError}
+            helperText={isPasswordError && validationErrorMsg}
+          />
+          <Button
+            fullWidth
+            type="submit"
+            variant="contained"
+            color="primary"
+            style={{ marginTop: "0.5rem" }}
+          >
+            Log in
+          </Button>
+        </form>
+        {shouldRedirect && <Redirect to="/astronauts" />}
+      </Paper>
+    </div>
   );
 }
 

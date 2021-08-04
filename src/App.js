@@ -1,5 +1,6 @@
 import { Route, Switch, Redirect } from "react-router-dom";
 import useAstronautsState from "./hooks/useAstronautsState";
+import useMessageState from "./hooks/useMessageState";
 import AstronautsList from "./AstronautsList";
 import NavBar from "./NavBar";
 import AddAstronautForm from "./AddAstronautForm";
@@ -12,6 +13,7 @@ import Footer from "./Footer";
 import "./App.css";
 import theme from "./theme";
 import ProtectedRoute from "./ProtectedRoute";
+import Message from "./Message";
 
 import { ThemeProvider } from "@material-ui/styles";
 
@@ -24,6 +26,9 @@ function App() {
     deleteAstronaut,
     editAstronaut,
   } = useAstronautsState([], isUserLoggedIn);
+
+  const [isMessage, message, setIsMessage, setMessage, hideAndClearMessage] =
+    useMessageState(false, "");
 
   const handleAddAstronaut = (astronaut) => {
     axios({
@@ -100,7 +105,16 @@ function App() {
               />
             )}
           />
-          <Route exact path="/register" render={() => <UserRegisterForm />} />
+          <Route
+            exact
+            path="/register"
+            render={() => (
+              <UserRegisterForm
+                setIsMessage={setIsMessage}
+                setMessage={setMessage}
+              />
+            )}
+          />
           <Route exact path="/" render={() => <HomePage />} />
           <ProtectedRoute
             isUserLoggedIn={isUserLoggedIn}
@@ -128,6 +142,13 @@ function App() {
           />
         </Switch>
         <Footer />
+        {isMessage && (
+          <Message
+            hideAndClearMessage={hideAndClearMessage}
+            open={isMessage}
+            message={message}
+          />
+        )}
       </ThemeProvider>
     </div>
   );

@@ -8,8 +8,9 @@ import { Redirect } from "react-router-dom";
 import img from "./img/logo2.svg";
 const { registerValidation } = require("./validations/users");
 
-function UserRegisterForm() {
+function UserRegisterForm({ setIsMessage, setMessage }) {
   const [validationErrorMsg, setValidationErrorMsg] = useState("");
+
   const [
     username,
     handleUsernameChange,
@@ -17,8 +18,10 @@ function UserRegisterForm() {
     isUsernameError,
     setIsUsernameError,
   ] = useInputState("", false);
+
   const [email, handleEmailChange, resetEmail, isEmailError, setIsEmailError] =
     useInputState("", false);
+
   const [
     password,
     handlePasswordChange,
@@ -26,6 +29,7 @@ function UserRegisterForm() {
     isPasswordError,
     setIsPasswordError,
   ] = useInputState("", false);
+
   const [
     passwordConfirmation,
     handlePasswordConfirmationChange,
@@ -33,11 +37,11 @@ function UserRegisterForm() {
     isPasswordConfirtmationError,
     setIsPasswordConfirmationError,
   ] = useInputState("", false);
+
   const [shouldRedirect, setShouldRedirect] = useState(false);
+
   const handleSubmit = async (evt) => {
     evt.preventDefault();
-
-    console.log(email);
 
     const { error } = registerValidation({
       username: username,
@@ -54,8 +58,14 @@ function UserRegisterForm() {
         setIsEmailError(true);
       } else if (key === "password") {
         setIsPasswordError(true);
+        return setValidationErrorMsg(
+          "Password has to have at least 5 characters."
+        );
       } else {
         setIsPasswordConfirmationError(true);
+        return setValidationErrorMsg(
+          "Entered password in not the same as password above."
+        );
       }
       setValidationErrorMsg(error.details[0].message);
     } else {
@@ -72,100 +82,108 @@ function UserRegisterForm() {
       })
         .then(function (response) {
           console.log(response.data.user);
-          setShouldRedirect(true);
+          const { success } = response.data;
+          if (success) {
+            setMessage(success.message);
+            setIsMessage(true);
+            setShouldRedirect(true);
+          }
         })
         .catch(function (error) {
-          console.log(error);
+          const errorData = error.response.data.error;
+          if (errorData.key === "email") {
+            setIsEmailError(true);
+          } else if (errorData.key === "username") {
+            setIsUsernameError(true);
+          }
+          setValidationErrorMsg(errorData.message);
         });
-
-      resetUsername();
-      resetEmail();
-      resetPassword();
-      resetPasswordConfirmation();
     }
   };
   return (
-    <Paper
-      elevation={3}
-      style={{
-        maxWidth: "450px",
-        margin: "2rem auto",
-        padding: "1rem",
-      }}
-    >
-      <form onSubmit={handleSubmit}>
-        <Typography component="h1" variant="h4" align="center">
-          Register and start recording your astronauts
-        </Typography>
-        <img
-          src={img}
-          alt="Astronaut and spaceship."
-          style={{ width: "80%", marginLeft: "10%" }}
-        />
-        <TextField
-          autoFocus
-          required
-          label="Username"
-          onChange={handleUsernameChange}
-          value={username}
-          variant="outlined"
-          margin="normal"
-          fullWidth
-          placeholder="Choose your username."
-          error={isUsernameError}
-          helperText={isUsernameError && validationErrorMsg}
-        />
-        <TextField
-          required
-          label="Email"
-          onChange={handleEmailChange}
-          value={email}
-          type="email"
-          variant="outlined"
-          margin="normal"
-          fullWidth
-          placeholder="Enter your email."
-          error={isEmailError}
-          helperText={isEmailError && validationErrorMsg}
-        />
-        <TextField
-          required
-          label="Password"
-          onChange={handlePasswordChange}
-          value={password}
-          type="password"
-          variant="outlined"
-          margin="normal"
-          fullWidth
-          placeholder="Enter your password."
-          error={isPasswordError}
-          helperText={isPasswordError && validationErrorMsg}
-        />
-        <TextField
-          required
-          label="Password confirmation"
-          onChange={handlePasswordConfirmationChange}
-          value={passwordConfirmation}
-          type="password"
-          variant="outlined"
-          margin="normal"
-          fullWidth
-          placeholder="Enter your password again."
-          error={isPasswordConfirtmationError}
-          helperText={isPasswordConfirtmationError && validationErrorMsg}
-        />
-        <Button
-          fullWidth
-          type="submit"
-          variant="contained"
-          color="primary"
-          style={{ marginTop: "0.5rem" }}
-        >
-          Register
-        </Button>
-      </form>
-      {shouldRedirect && <Redirect to="/login" />}
-    </Paper>
+    <div style={{ flexGrow: "1" }}>
+      <Paper
+        elevation={3}
+        style={{
+          maxWidth: "450px",
+          margin: "2rem auto",
+          padding: "1rem",
+        }}
+      >
+        <form onSubmit={handleSubmit}>
+          <Typography component="h1" variant="h4" align="center">
+            Register and start recording your astronauts
+          </Typography>
+          <img
+            src={img}
+            alt="Astronaut and spaceship."
+            style={{ width: "80%", marginLeft: "10%" }}
+          />
+          <TextField
+            autoFocus
+            required
+            label="Username"
+            onChange={handleUsernameChange}
+            value={username}
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            placeholder="Choose your username."
+            error={isUsernameError}
+            helperText={isUsernameError && validationErrorMsg}
+          />
+          <TextField
+            required
+            label="Email"
+            onChange={handleEmailChange}
+            value={email}
+            type="email"
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            placeholder="Enter your email."
+            error={isEmailError}
+            helperText={isEmailError && validationErrorMsg}
+          />
+          <TextField
+            required
+            label="Password"
+            onChange={handlePasswordChange}
+            value={password}
+            type="password"
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            placeholder="Enter your password."
+            error={isPasswordError}
+            helperText={isPasswordError && validationErrorMsg}
+          />
+          <TextField
+            required
+            label="Password confirmation"
+            onChange={handlePasswordConfirmationChange}
+            value={passwordConfirmation}
+            type="password"
+            variant="outlined"
+            margin="normal"
+            fullWidth
+            placeholder="Enter your password again."
+            error={isPasswordConfirtmationError}
+            helperText={isPasswordConfirtmationError && validationErrorMsg}
+          />
+          <Button
+            fullWidth
+            type="submit"
+            variant="contained"
+            color="primary"
+            style={{ marginTop: "0.5rem" }}
+          >
+            Register
+          </Button>
+        </form>
+        {shouldRedirect && <Redirect to="/login" />}
+      </Paper>
+    </div>
   );
 }
 
