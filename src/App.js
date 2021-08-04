@@ -14,6 +14,7 @@ import "./App.css";
 import theme from "./theme";
 import ProtectedRoute from "./ProtectedRoute";
 import Message from "./Message";
+import Page404 from "./Page404";
 
 import { ThemeProvider } from "@material-ui/styles";
 
@@ -147,7 +148,6 @@ function App() {
               />
             )}
           />
-          <Route exact path="/" render={() => <HomePage />} />
           <ProtectedRoute
             isUserLoggedIn={isUserLoggedIn}
             exact
@@ -172,6 +172,8 @@ function App() {
             astronauts={astronauts}
             handleAstronaut={handleEditAstronaut}
           />
+          <Route exact path="/" render={() => <HomePage />} />
+          <Route exact path="*" render={() => <Page404 />} />
         </Switch>
         <Footer />
         {isMessage && (

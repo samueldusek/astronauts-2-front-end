@@ -26,10 +26,12 @@ const useStyles = makeStyles((theme) => ({
   heading: {
     fontSize: "7rem",
     color: "white",
+    textShadow: "2px 2px 10px rgba(0,0,0,0.5)",
   },
   subtitle: {
     color: "white",
     fontSize: "2rem",
+    textShadow: "2px 2px 6px rgba(0,0,0,0.5)",
   },
   signupButton: {
     height: "50px",
