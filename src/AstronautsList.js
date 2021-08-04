@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -14,6 +14,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import myTheme from "./theme";
+import DeleteDialog from "./DeleteDialog";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,8 +43,26 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function AstronautsList(props) {
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [astronautToDelete, setAstronautToDelete] = useState({});
   const { astronauts, deleteAstronaut } = props;
   const classes = useStyles(myTheme);
+
+  const handleClick = (astronaut) => {
+    setIsDeleteDialogOpen(true);
+    setAstronautToDelete(astronaut);
+  };
+
+  const handleClose = () => {
+    setIsDeleteDialogOpen(false);
+    setAstronautToDelete({});
+  };
+
+  const handleDelete = (astronaut) => {
+    deleteAstronaut(astronaut._id);
+    handleClose();
+  };
+
   return (
     <div className={classes.root}>
       <Container maxWidth="md">
@@ -95,7 +114,7 @@ function AstronautsList(props) {
                     </IconButton>
                     <IconButton
                       aria-label="delete"
-                      onClick={() => deleteAstronaut(astronaut._id)}
+                      onClick={() => handleClick(astronaut)}
                     >
                       <DeleteOutlineIcon />
                     </IconButton>
@@ -120,6 +139,12 @@ function AstronautsList(props) {
           </Button>
         </Container>
       </Container>
+      <DeleteDialog
+        open={isDeleteDialogOpen}
+        handleClose={handleClose}
+        astronaut={astronautToDelete}
+        handleDelete={() => handleDelete(astronautToDelete)}
+      />
     </div>
   );
 }

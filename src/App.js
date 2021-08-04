@@ -1,4 +1,4 @@
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import useAstronautsState from "./hooks/useAstronautsState";
 import useMessageState from "./hooks/useMessageState";
 import AstronautsList from "./AstronautsList";
@@ -19,13 +19,8 @@ import { ThemeProvider } from "@material-ui/styles";
 
 function App() {
   const [isUserLoggedIn, setIsUserLoggedIn, logoutUser] = useUserState(false);
-  const {
-    astronauts,
-    setAstronauts,
-    addAstronaut,
-    deleteAstronaut,
-    editAstronaut,
-  } = useAstronautsState([], isUserLoggedIn);
+  const { astronauts, addAstronaut, deleteAstronaut, editAstronaut } =
+    useAstronautsState([], isUserLoggedIn);
 
   const [isMessage, message, setIsMessage, setMessage, hideAndClearMessage] =
     useMessageState(false, "");

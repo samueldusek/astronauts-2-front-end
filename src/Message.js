@@ -10,6 +10,7 @@ function PositionedSnackbar({ open, message, hideAndClearMessage }) {
   return (
     <div>
       <Snackbar
+        autoHideDuration={5000}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open={open}
         onClose={hideAndClearMessage}
