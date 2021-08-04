@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/astronauts-2-front-end/static/css/main.b4d4b5ab.chunk.css",
+    "main.js": "/astronauts-2-front-end/static/js/main.6aa4ff29.chunk.js",
+    "main.js.map": "/astronauts-2-front-end/static/js/main.6aa4ff29.chunk.js.map",
+    "runtime-main.js": "/astronauts-2-front-end/static/js/runtime-main.a3e4598b.js",
+    "runtime-main.js.map": "/astronauts-2-front-end/static/js/runtime-main.a3e4598b.js.map",
+    "static/js/2.71989c29.chunk.js": "/astronauts-2-front-end/static/js/2.71989c29.chunk.js",
+    "static/js/2.71989c29.chunk.js.map": "/astronauts-2-front-end/static/js/2.71989c29.chunk.js.map",
+    "static/js/3.ae81d08b.chunk.js": "/astronauts-2-front-end/static/js/3.ae81d08b.chunk.js",
+    "static/js/3.ae81d08b.chunk.js.map": "/astronauts-2-front-end/static/js/3.ae81d08b.chunk.js.map",
+    "index.html": "/astronauts-2-front-end/index.html",
+    "static/css/main.b4d4b5ab.chunk.css.map": "/astronauts-2-front-end/static/css/main.b4d4b5ab.chunk.css.map",
+    "static/js/2.71989c29.chunk.js.LICENSE.txt": "/astronauts-2-front-end/static/js/2.71989c29.chunk.js.LICENSE.txt",
+    "static/media/logo.638e5f23.svg": "/astronauts-2-front-end/static/media/logo.638e5f23.svg",
+    "static/media/logo2.9a5711c6.svg": "/astronauts-2-front-end/static/media/logo2.9a5711c6.svg",
+    "static/media/logo3.013cc87e.svg": "/astronauts-2-front-end/static/media/logo3.013cc87e.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.a3e4598b.js",
+    "static/js/2.71989c29.chunk.js",
+    "static/css/main.b4d4b5ab.chunk.css",
+    "static/js/main.6aa4ff29.chunk.js"
+  ]
+}
