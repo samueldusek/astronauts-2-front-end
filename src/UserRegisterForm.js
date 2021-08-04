@@ -89,8 +89,7 @@ function UserRegisterForm() {
       elevation={3}
       style={{
         maxWidth: "450px",
-        margin: "auto",
-        marginTop: "2rem",
+        margin: "2rem auto",
         padding: "1rem",
       }}
     >

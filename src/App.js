@@ -1,4 +1,4 @@
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import useAstronautsState from "./hooks/useAstronautsState";
 import AstronautsList from "./AstronautsList";
 import NavBar from "./NavBar";
@@ -11,6 +11,7 @@ import HomePage from "./HomePage";
 import Footer from "./Footer";
 import "./App.css";
 import theme from "./theme";
+import ProtectedRoute from "./ProtectedRoute";
 
 import { ThemeProvider } from "@material-ui/styles";
 
@@ -91,38 +92,6 @@ function App() {
         <Switch>
           <Route
             exact
-            path="/astronauts/add"
-            render={(routeProps) => (
-              <AddAstronautForm
-                astronauts={astronauts}
-                handleAstronaut={handleAddAstronaut}
-                {...routeProps}
-              />
-            )}
-          />
-          <Route
-            exact
-            path="/astronauts"
-            render={() => (
-              <AstronautsList
-                astronauts={astronauts}
-                deleteAstronaut={handleDeleteAstronaut}
-              />
-            )}
-          />
-          <Route
-            exact
-            path="/astronauts/:id"
-            render={(routeProps) => (
-              <AddAstronautForm
-                astronauts={astronauts}
-                handleAstronaut={handleEditAstronaut}
-                {...routeProps}
-              />
-            )}
-          />
-          <Route
-            exact
             path="/login"
             render={(routeProps) => (
               <UserLoginForm
@@ -133,6 +102,30 @@ function App() {
           />
           <Route exact path="/register" render={() => <UserRegisterForm />} />
           <Route exact path="/" render={() => <HomePage />} />
+          <ProtectedRoute
+            isUserLoggedIn={isUserLoggedIn}
+            exact
+            path="/astronauts"
+            component={AstronautsList}
+            astronauts={astronauts}
+            deleteAstronaut={handleDeleteAstronaut}
+          />
+          <ProtectedRoute
+            isUserLoggedIn={isUserLoggedIn}
+            exact
+            path="/astronauts/add"
+            component={AddAstronautForm}
+            astronauts={astronauts}
+            handleAstronaut={handleAddAstronaut}
+          />
+          <ProtectedRoute
+            isUserLoggedIn={isUserLoggedIn}
+            exact
+            path="/astronauts/:id"
+            component={AddAstronautForm}
+            astronauts={astronauts}
+            handleAstronaut={handleEditAstronaut}
+          />
         </Switch>
         <Footer />
       </ThemeProvider>

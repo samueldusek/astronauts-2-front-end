@@ -17,6 +17,7 @@ function AddAstronautForm(props) {
 
   const astronautToEdit =
     astronauts.find((astronaut) => astronaut._id === id) || false;
+
   if (astronautToEdit) {
     initFirstName = astronautToEdit.firstName;
     initLastName = astronautToEdit.lastName;
@@ -31,6 +32,7 @@ function AddAstronautForm(props) {
     isFirstNameValError,
     setFirstNameIsValError,
   ] = useInputState(initFirstName, false);
+
   const [
     lastName,
     handleLastnameChange,
@@ -38,6 +40,7 @@ function AddAstronautForm(props) {
     isLastNameValError,
     setLastNameIsValError,
   ] = useInputState(initLastName, false);
+
   const [
     birthday,
     handleBirthdayChange,
@@ -45,6 +48,7 @@ function AddAstronautForm(props) {
     isBirthdayValError,
     setBirthdayIsValError,
   ] = useInputState(initBirthday, false);
+
   const [
     superpower,
     handleSuperpowerChange,
@@ -52,6 +56,7 @@ function AddAstronautForm(props) {
     isSuperpowerValError,
     setSuperpowerIsValError,
   ] = useInputState(initSuperpower, false);
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
     const birthdayDate = new Date(birthday);
@@ -87,8 +92,7 @@ function AddAstronautForm(props) {
       elevation={3}
       style={{
         maxWidth: "450px",
-        margin: "auto",
-        marginTop: "2rem",
+        margin: "2rem auto",
         padding: "1rem",
       }}
     >
