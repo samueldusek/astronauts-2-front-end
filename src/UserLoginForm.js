@@ -9,6 +9,7 @@ import { Redirect } from "react-router-dom";
 import img from "./img/logo2.svg";
 import { loginValidation } from "./validations/users";
 import styles from "./styles/UserLoginFormStyles";
+import API_URL from "./data";
 
 const useStyles = makeStyles(() => styles);
 
@@ -44,7 +45,7 @@ function UserLoginForm({ setIsUserLoggedIn, setIsMessage, setMessage }) {
     } else {
       axios({
         method: "post",
-        baseURL: "http://localhost:3000/api/",
+        baseURL: API_URL,
         url: "/users/login",
         data: {
           username: username,

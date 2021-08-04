@@ -15,6 +15,7 @@ import theme from "./theme";
 import ProtectedRoute from "./ProtectedRoute";
 import Message from "./Message";
 import Page404 from "./Page404";
+import API_URL from "./data";
 
 import { ThemeProvider } from "@material-ui/styles";
 
@@ -29,7 +30,7 @@ function App() {
   const handleAddAstronaut = (astronaut) => {
     axios({
       method: "post",
-      baseURL: "http://localhost:3000/api/",
+      baseURL: API_URL,
       url: "/astronauts",
       headers: { jwtToken: window.localStorage.getItem("token") },
       data: {
@@ -63,7 +64,7 @@ function App() {
   const handleEditAstronaut = (astronaut, id) => {
     axios({
       method: "put",
-      baseURL: "http://localhost:3000/api/",
+      baseURL: API_URL,
       url: `/astronauts/${id}`,
       headers: { jwtToken: window.localStorage.getItem("token") },
       data: {
@@ -97,7 +98,7 @@ function App() {
   const handleDeleteAstronaut = (astronautId) => {
     axios({
       method: "delete",
-      baseURL: "http://localhost:3000/api/",
+      baseURL: API_URL,
       url: `/astronauts/${astronautId}`,
       headers: { jwtToken: window.localStorage.getItem("token") },
     })
@@ -171,6 +172,12 @@ function App() {
             component={AddAstronautForm}
             astronauts={astronauts}
             handleAstronaut={handleEditAstronaut}
+          />
+          {/* For GitHub Pages Only  */}
+          <Route
+            exact
+            path="/astronauts-2-front-end"
+            render={() => <HomePage />}
           />
           <Route exact path="/" render={() => <HomePage />} />
           <Route exact path="*" render={() => <Page404 />} />

@@ -9,6 +9,7 @@ import { Redirect } from "react-router-dom";
 import img from "./img/logo2.svg";
 import { registerValidation } from "./validations/users";
 import styles from "./styles/UserRegisterFormStyles";
+import API_URL from "./data";
 
 const useStyles = makeStyles(() => styles);
 
@@ -76,7 +77,7 @@ function UserRegisterForm({ setIsMessage, setMessage }) {
     } else {
       axios({
         method: "post",
-        baseURL: "http://localhost:3000/api/",
+        baseURL: API_URL,
         url: "/users/register",
         data: {
           username: username,

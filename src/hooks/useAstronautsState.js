@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import API_URL from "./../data";
 
 const useAstronautsState = (initialValue, isUserLoggedIn) => {
   const [astronauts, setAstronauts] = useState(initialValue);
@@ -7,7 +8,7 @@ const useAstronautsState = (initialValue, isUserLoggedIn) => {
     async function getAllAstronauts() {
       const response = axios({
         method: "get",
-        baseURL: "http://localhost:3000/api/",
+        baseURL: API_URL,
         url: "/astronauts",
         headers: { jwtToken: window.localStorage.getItem("token") },
       });
