@@ -8,7 +8,8 @@ import { astronautValidation } from "./validations/astronauts";
 
 function AddAstronautForm(props) {
   const [validationErrorMsg, setValidationErrorMsg] = useState("");
-  const { handleAstronaut, history, astronauts } = props;
+  const { handleAstronaut, history, astronauts, setMessage, setIsMessage } =
+    props;
   const { id } = props.match.params || "";
   let initFirstName = "";
   let initLastName = "";

@@ -46,10 +46,21 @@ function App() {
       .then(function (response) {
         const newAstronaut = { ...astronaut, _id: response.data.astronaut._id };
         addAstronaut(newAstronaut);
-        return response.data;
+        const { success } = response.data;
+        if (success) {
+          setMessage({ type: "success", text: success.message });
+          setIsMessage(true);
+        }
       })
       .catch(function (error) {
-        return error.response.data;
+        const errorData = error.response.data.error;
+        if (errorData) {
+          setMessage({
+            type: "error",
+            text: "Something went wrong. Please try it again.",
+          });
+          setIsMessage(true);
+        }
       });
   };
 
@@ -69,9 +80,21 @@ function App() {
       .then(function (response) {
         const editedAstronaut = { ...astronaut, _id: id };
         editAstronaut(editedAstronaut);
+        const { success } = response.data;
+        if (success) {
+          setMessage({ type: "success", text: success.message });
+          setIsMessage(true);
+        }
       })
       .catch(function (error) {
-        console.log(error);
+        const errorData = error.response.data.error;
+        if (errorData) {
+          setMessage({
+            type: "error",
+            text: errorData.message,
+          });
+          setIsMessage(true);
+        }
       });
   };
 
@@ -84,9 +107,21 @@ function App() {
     })
       .then(function (response) {
         deleteAstronaut(astronautId);
+        const { success } = response.data;
+        if (success) {
+          setMessage({ type: "success", text: success.message });
+          setIsMessage(true);
+        }
       })
       .catch(function (error) {
-        console.log(error);
+        const errorData = error.response.data.error;
+        if (errorData) {
+          setMessage({
+            type: "error",
+            text: "Something went wrong. Please try it again.",
+          });
+          setIsMessage(true);
+        }
       });
   };
 

@@ -81,13 +81,12 @@ function UserRegisterForm({ setIsMessage, setMessage }) {
         },
       })
         .then(function (response) {
-          console.log(response.data.user);
           const { success } = response.data;
           if (success) {
-            setMessage(success.message);
+            setMessage({ type: "success", text: success.message });
             setIsMessage(true);
-            setShouldRedirect(true);
           }
+          setShouldRedirect(true);
         })
         .catch(function (error) {
           const errorData = error.response.data.error;
