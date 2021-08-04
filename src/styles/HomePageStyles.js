@@ -1,4 +1,5 @@
 import background from "../img/logo3.svg";
+import sizes from "./sizes";
 
 const styles = {
   root: {
@@ -23,6 +24,9 @@ const styles = {
     fontSize: "7rem",
     color: "white",
     textShadow: "2px 2px 10px rgba(0,0,0,0.5)",
+    [sizes.down("sm")]: {
+      fontSize: "4.5rem",
+    },
   },
   subtitle: {
     color: "white",

@@ -16,9 +16,9 @@ function NavBar(props) {
   return (
     <div className={classes.root}>
       <AppBar position="static" className={classes.navbar}>
-        <Toolbar>
+        <Toolbar className={classes.toolbar}>
           <Typography variant="h6" className={classes.title}>
-            Astronauts{" "}
+            Astronauts
             <img
               src={logo}
               alt="Astronaut and spaceship."
@@ -26,8 +26,9 @@ function NavBar(props) {
             />
           </Typography>
           {isUserLoggedIn && (
-            <>
+            <div className={classes.buttons}>
               <Button
+                className={classes.button}
                 color="primary"
                 variant="contained"
                 component={Link}
@@ -36,6 +37,7 @@ function NavBar(props) {
                 All astronauts
               </Button>
               <Button
+                className={classes.button}
                 color="primary"
                 variant="contained"
                 component={Link}
@@ -45,6 +47,7 @@ function NavBar(props) {
                 Add astronaut
               </Button>
               <Button
+                className={classes.button}
                 color="primary"
                 variant="contained"
                 component={Link}
@@ -54,11 +57,12 @@ function NavBar(props) {
               >
                 Logout
               </Button>
-            </>
+            </div>
           )}
           {!isUserLoggedIn && (
-            <>
+            <div className={classes.buttons}>
               <Button
+                className={classes.button}
                 color="primary"
                 variant="contained"
                 component={Link}
@@ -68,6 +72,7 @@ function NavBar(props) {
                 Sign up
               </Button>
               <Button
+                className={classes.button}
                 color="primary"
                 variant="contained"
                 component={Link}
@@ -76,7 +81,7 @@ function NavBar(props) {
               >
                 Login
               </Button>
-            </>
+            </div>
           )}
         </Toolbar>
       </AppBar>
