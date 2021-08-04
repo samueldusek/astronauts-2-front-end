@@ -14,8 +14,8 @@ function PositionedSnackbar({ open, message, hideAndClearMessage }) {
         open={open}
         onClose={hideAndClearMessage}
       >
-        <Alert onClose={hideAndClearMessage} severity="success">
-          {message}
+        <Alert onClose={hideAndClearMessage} severity={`${message.type}`}>
+          {message.text}
         </Alert>
       </Snackbar>
     </div>

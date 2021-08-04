@@ -1,11 +1,15 @@
 import { useState } from "react";
 
-const useMessageState = (isMessageInit, messageInit) => {
-  const [isMessage, setIsMessage] = useState(isMessageInit);
-  const [message, setMessage] = useState(messageInit);
+const useMessageState = () => {
+  const initMessage = {
+    type: "",
+    text: "",
+  };
+  const [message, setMessage] = useState(initMessage);
+  const [isMessage, setIsMessage] = useState(false);
   const hideAndClearMessage = () => {
+    setMessage(initMessage);
     setIsMessage(false);
-    setMessage("");
   };
   return [isMessage, message, setIsMessage, setMessage, hideAndClearMessage];
 };

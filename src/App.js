@@ -101,6 +101,8 @@ function App() {
             render={(routeProps) => (
               <UserLoginForm
                 setIsUserLoggedIn={setIsUserLoggedIn}
+                setIsMessage={setIsMessage}
+                setMessage={setMessage}
                 {...routeProps}
               />
             )}

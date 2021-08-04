@@ -13,20 +13,22 @@ const useAstronautsState = (initialValue, isUserLoggedIn) => {
       });
       return response;
     }
-    getAllAstronauts()
-      .then(function (response) {
-        const fetchedAstronauts = response.data;
-        const editedFetchedAstronauts = fetchedAstronauts.map((astronaut) => {
-          return {
-            ...astronaut,
-            birthday: new Date(astronaut.birthday),
-          };
+    if (isUserLoggedIn) {
+      getAllAstronauts()
+        .then(function (response) {
+          const fetchedAstronauts = response.data;
+          const editedFetchedAstronauts = fetchedAstronauts.map((astronaut) => {
+            return {
+              ...astronaut,
+              birthday: new Date(astronaut.birthday),
+            };
+          });
+          setAstronauts(editedFetchedAstronauts);
+        })
+        .catch(function (error) {
+          console.log(error);
         });
-        setAstronauts(editedFetchedAstronauts);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    }
   }, [isUserLoggedIn]);
   return {
     astronauts,

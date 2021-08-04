@@ -8,9 +8,8 @@ import { Redirect } from "react-router-dom";
 import img from "./img/logo2.svg";
 const { loginValidation } = require("./validations/users");
 
-function UserLoginForm(props) {
+function UserLoginForm({ setIsUserLoggedIn, setIsMessage, setMessage }) {
   const [validationErrorMsg, setValidationErrorMsg] = useState("");
-  const { setIsUserLoggedIn } = props;
   const [
     username,
     handleUsernameChange,
@@ -48,17 +47,24 @@ function UserLoginForm(props) {
         },
       })
         .then(function (response) {
-          console.log(response.data.user);
           window.localStorage.setItem("token", response.data.user.token);
+          const { success } = response.data;
+          if (success) {
+            setMessage({ type: "success", text: success.message });
+            setIsMessage(true);
+          }
           setIsUserLoggedIn(true);
           setShouldRedirect(true);
         })
         .catch(function (error) {
-          console.log(error);
+          const errorData = error.response.data.error;
+          if (errorData) {
+            setIsUsernameError(true);
+            setIsPasswordError(true);
+            setMessage({ type: "error", text: errorData.message });
+            setIsMessage(true);
+          }
         });
-
-      resetUsername();
-      resetPassword();
     }
   };
   return (
