@@ -30,9 +30,18 @@ const styles = {
     maxHeight: "25px",
     marginLeft: "0.4rem",
   },
-  button: {
+  buttons: {
     [sizes.down("xs")]: {
-      fontSize: "0.8rem",
+      width: "100%",
+      display: "flex",
+      justifyContent: "space-around",
+    },
+  },
+  button: {
+    marginLeft: "1rem",
+    [sizes.down("xs")]: {
+      fontSize: "0.65rem",
+      marginLeft: "0rem",
     },
   },
 };

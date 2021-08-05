@@ -27,6 +27,9 @@ const styles = {
     [sizes.down("sm")]: {
       fontSize: "4.5rem",
     },
+    [sizes.down("xs")]: {
+      fontSize: "3.5rem",
+    },
   },
   subtitle: {
     color: "white",

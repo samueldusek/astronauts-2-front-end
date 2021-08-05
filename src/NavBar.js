@@ -28,7 +28,7 @@ function NavBar(props) {
           {isUserLoggedIn && (
             <div className={classes.buttons}>
               <Button
-                className={classes.button}
+                className={[classes.button, classes.buttonFirst].join(" ")}
                 color="primary"
                 variant="contained"
                 component={Link}
@@ -42,7 +42,6 @@ function NavBar(props) {
                 variant="contained"
                 component={Link}
                 to="/astronauts/add"
-                style={{ marginLeft: "1rem" }}
               >
                 Add astronaut
               </Button>
@@ -52,7 +51,6 @@ function NavBar(props) {
                 variant="contained"
                 component={Link}
                 to="/"
-                style={{ marginLeft: "1rem" }}
                 onClick={() => logout()}
               >
                 Logout
@@ -67,7 +65,6 @@ function NavBar(props) {
                 variant="contained"
                 component={Link}
                 to="/register"
-                style={{ marginLeft: "1rem" }}
               >
                 Sign up
               </Button>
@@ -77,7 +74,6 @@ function NavBar(props) {
                 variant="contained"
                 component={Link}
                 to="/login"
-                style={{ marginLeft: "1rem" }}
               >
                 Login
               </Button>

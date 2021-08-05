@@ -1,3 +1,5 @@
+import sizes from "./sizes";
+
 const styles = {
   root: {
     flexGrow: 1,
@@ -7,16 +9,21 @@ const styles = {
     maxWidth: "500px",
     display: "flex",
     flexDirection: "column",
-    justifyContent: "center",
     margin: "auto",
   },
   heading: {
     fontSize: "4rem",
     color: "black",
+    [sizes.down("sm")]: {
+      fontSize: "3rem",
+    },
   },
   subtitle: {
     color: "black",
     fontSize: "2rem",
+    [sizes.down("xs")]: {
+      fontSize: "1rem",
+    },
   },
   image: {
     width: "100%",
